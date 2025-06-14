@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeRecordingApp", "TimeRecordingApp\TimeRecordingApp.csproj", "{2B75CEE4-A2D5-43B5-A173-DE34C484D89B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeRecording.Dal", "TimeRecording.Dal\TimeRecording.Dal.csproj", "{6C7BB99C-20A4-4585-9E24-49217A32333C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B75CEE4-A2D5-43B5-A173-DE34C484D89B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B75CEE4-A2D5-43B5-A173-DE34C484D89B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B75CEE4-A2D5-43B5-A173-DE34C484D89B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B75CEE4-A2D5-43B5-A173-DE34C484D89B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C7BB99C-20A4-4585-9E24-49217A32333C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C7BB99C-20A4-4585-9E24-49217A32333C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C7BB99C-20A4-4585-9E24-49217A32333C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C7BB99C-20A4-4585-9E24-49217A32333C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0F71B23F-66C5-4A25-95B9-11C8FA681103}
+	EndGlobalSection
+EndGlobal

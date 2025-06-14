@@ -1,0 +1,59 @@
+<Button Width="60" Margin="10" Command="{Binding Path=DataContext.AddTimeRecordCmd, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                        CommandParameter="{Binding ElementName=gridTimeRecords, Path=ItemsSource}">Neu</Button>
+						
+						
+						
+						
+                <DataGridTextColumn Header="Datum" Width="175" Binding="{Binding Path=MDate, StringFormat={}{0:d.MM.yyyy ddd}}"></DataGridTextColumn>
+
+                <DataGridTextColumn Header="Start" Binding="{Binding Path=MStartTime, StringFormat={}{0:hh':'mm}}"></DataGridTextColumn>
+				
+				<DataGridTextColumn Header="Datum" Width="175" Binding="{Binding Path=MDate,    Converter={StaticResource DateConverter} }"></DataGridTextColumn>
+				
+				        <CollectionViewSource x:Key="Activities" Source="{Binding Owners}"/>
+						
+						
+						
+						ValidationRules= {StaticResource TimeValidation}, 
+						
+						
+						
+						
+						
+						
+						
+netstat -abn					
+1433
+			
+dotnet tool install --global dotnet-ef
+
+cd .\TimeRecording.Dal
+dotnet ef dbcontext scaffold "server=.,61770;Database=TimeRecording;User Id=sa;Password=panther;" Microsoft.EntityFrameworkCore.SqlServer -d -c ApplicationDbContext --context-dir EfStructures -o Entities -f  --startup-project=..\TimeRecordingApp
+
+
+
+CActivity > Activities
+CTimeRecord > TimeRecordings
+
+
+
+
+CommandParameter="{Binding RelativeSource={RelativeSource Self}}">_Neu</Button>
+
+RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}} }"
+
+
+
+
+
+ SortMemberPath="{Binding Path=Description, Source={StaticResource Activities}}"
+ 
+  SelectedValuePath="Description" 
+  
+  
+   SortMemberPath="{Binding Path=Description, Source={StaticResource Activities}}"
+   
+   
+   SelectedValuePath="{Binding Activity}"
+   
+   
