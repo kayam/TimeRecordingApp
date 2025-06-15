@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimeRecording.Dal.Entities;
 using TimeRecordingApp.ViewModels;
 
 namespace TimeRecordingApp
@@ -103,6 +105,34 @@ namespace TimeRecordingApp
             win.Owner = this;
             win.ShowDialog ();
 
+        }
+
+        private bool mOnlyToday = false;
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //CollectionViewSource cvs = (CollectionViewSource)Resources["FilteredTimeRecords"];
+            mOnlyToday = !mOnlyToday;
+            ICollectionView view = CollectionViewSource.GetDefaultView(gridTimeRecords.ItemsSource);
+            view.Refresh();
+            mTodayButton.Content = mOnlyToday ? "Alle" : "Heute";
+        }
+
+
+        private void FilteredTimeRecords_Filter (object sender, FilterEventArgs e)
+        {
+            if (!mOnlyToday)
+            {
+                e.Accepted = true;
+                return;
+            }
+            if (e.Item is TimeRecordings rec)
+            {
+                DateTime today = DateTime.Today;
+
+
+                e.Accepted = rec.Date.Date == today.Date;
+                             //rec.Name.ToLower().Contains(_filterText);
+            }
         }
     }
 }

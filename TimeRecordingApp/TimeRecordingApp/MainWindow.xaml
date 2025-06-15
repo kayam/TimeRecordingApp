@@ -15,6 +15,11 @@
         <conv:DateConverter x:Key="DateConverter"></conv:DateConverter>
         <vali:TimeValidation x:Key="TimeValidation"></vali:TimeValidation>
         <CollectionViewSource x:Key="Activities" Source="{Binding ActivityRecords}"/>
+
+        <CollectionViewSource x:Key="FilteredTimeRecords"
+                          Source="{Binding TimeRecords}"
+                          Filter="FilteredTimeRecords_Filter" />
+        
     </Window.Resources>
 
     <Window.CommandBindings>
@@ -41,7 +46,14 @@
 
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Calendar></Calendar>
-            <Label x:Name="lblTime" Height="148" HorizontalAlignment="Left"  Width="378" FontSize="20" Margin="20,0,0,0"  />
+        
+                <StackPanel>
+                    <Label x:Name="lblTime" Height="148" HorizontalAlignment="Left"  Width="378" FontSize="20" Margin="20,0,0,0"  />
+                    <StackPanel HorizontalAlignment="Left">
+                        <Button x:Name="mTodayButton" Width="100" Click="Button_Click">Heute</Button>
+                    </StackPanel>
+                    
+                </StackPanel>
         </StackPanel>
 
             <DataGrid AlternationCount="2" CanUserDeleteRows="False"
@@ -51,9 +63,11 @@
                   CanUserAddRows="False" 
                   Grid.Row="1" 
                   AutoGenerateColumns="False" 
-                  ItemsSource="{Binding TimeRecords}" >
+                      ItemsSource="{Binding Source={StaticResource FilteredTimeRecords}}"
 
-            <DataGrid.RowValidationErrorTemplate>
+                  >
+                <!--  ItemsSource="{Binding TimeRecords}" -->
+                <DataGrid.RowValidationErrorTemplate>
                 <ControlTemplate>
                         <Grid Margin="0,-2,0,-2" ToolTip="{Binding Path=(Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}} }">
                         <Ellipse StrokeThickness="0" Fill="Red" Width="{TemplateBinding FontSize}" Height="{TemplateBinding FontSize}" />
