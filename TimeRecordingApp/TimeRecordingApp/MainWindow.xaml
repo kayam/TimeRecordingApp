@@ -9,6 +9,7 @@
         mc:Ignorable="d"
         DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}"
         Title="Zeiterfassung" Height="650" Width="800" Name="MainWin"
+        
         >
     <Window.Resources>
         <conv:TimeConverter x:Key="TimeConverter"></conv:TimeConverter>
@@ -25,6 +26,11 @@
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Close" Executed="CloseCommand_Executed" CanExecute="CloseCommand_CanExecute"></CommandBinding>
     </Window.CommandBindings>
+
+    <Window.InputBindings>
+        <KeyBinding Key="Escape"
+                    Command="ApplicationCommands.Close" />
+    </Window.InputBindings>
 
     <DockPanel>
     <Menu DockPanel.Dock="Top">

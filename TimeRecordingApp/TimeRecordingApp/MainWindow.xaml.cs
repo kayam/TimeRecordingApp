@@ -29,6 +29,23 @@ namespace TimeRecordingApp
 
         System.Windows.Threading.DispatcherTimer Timer = new System.Windows.Threading.DispatcherTimer();
 
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            if (ViewModel.IsDirty)
+            {
+                MessageBoxResult result = MessageBox.Show("Es gibt ungespeicherte Änderungen. Wollen Sie das Programm wirklich beenden?", "Ungespeicherte Änderungen", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.No)
+                {
+                    e.Cancel = true; // Abbrechen des Schließvorgangs
+                    return;
+                }
+            }
+                base.OnClosing(e);
+            // Optional: Ask the user for confirmation
+            // Application.Current.Shutdown(); // optional, not needed here
+        }
+
         public MainWindow() {
             ViewModel = new MainWindowViewModel(this);
             InitializeComponent();
