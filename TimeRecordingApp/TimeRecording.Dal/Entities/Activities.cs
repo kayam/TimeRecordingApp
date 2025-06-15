@@ -31,7 +31,7 @@ namespace TimeRecording.Dal.Entities
             {
                 if (value == mId) return;
                 mId = value;
-                OnPropertyChanged();
+               // OnPropertyChanged();
             }
         }
 

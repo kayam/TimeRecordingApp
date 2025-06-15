@@ -7,6 +7,14 @@
         mc:Ignorable="d"
         DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}"
         Title="Tätigkeiten" Height="450" Width="800">
+    
+    <Window.Resources>
+        <Style x:Key="NumericOnlyTextBoxStyle" TargetType="TextBox">
+            <EventSetter Event="PreviewTextInput" Handler="TextBox_PreviewTextInput" />
+            <EventSetter Event="GotFocus" Handler="TextBox_GotFocus" />
+        </Style>
+    </Window.Resources>
+    
     <Grid>
 
         <Grid.RowDefinitions>
@@ -14,7 +22,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Row="0"  x:Name="mGridActivities" 
+        <DataGrid Grid.Row="0"  x:Name="mGridActivities"  CanUserDeleteRows="False"
                   AlternationCount="2" 
                   AlternatingRowBackground="LightGray" 
                   CanUserAddRows="False" 
@@ -22,8 +30,8 @@
                   ItemsSource="{Binding ActivityRecords}" >
 
             <DataGrid.Columns>
-            <DataGridTextColumn  Header="Beschreibung" Width="*"  Binding="{Binding Path=Description}"></DataGridTextColumn>
-            <DataGridTextColumn  Header="Priorität" Width="120"  Binding="{Binding Path=Priority}"></DataGridTextColumn>
+                <DataGridTextColumn  Header="Beschreibung" Width="*"  Binding="{Binding Path=Description, UpdateSourceTrigger=LostFocus}"></DataGridTextColumn>
+                <DataGridTextColumn  Header="Priorität" Width="120"  Binding="{Binding Path=Priority, UpdateSourceTrigger=LostFocus}" EditingElementStyle="{StaticResource NumericOnlyTextBoxStyle}"></DataGridTextColumn>
             <DataGridCheckBoxColumn Header="Löschen" Binding="{Binding Path=MIsDeleted}"></DataGridCheckBoxColumn>
             </DataGrid.Columns>
         </DataGrid>
@@ -34,7 +42,7 @@
             <!-- <Button Width="60" Margin="10"  Command="{Binding Path=DeleteTimeRecordCmd}"
                         CommandParameter="{Binding ElementName=gridTimeRecords}">_Löschen</Button> -->
             <Button Width="60" Margin="10" Command="{Binding Path=SaveActivityRecordCmd}"
-                        CommandParameter="{Binding}">Speichern</Button>
+                        CommandParameter="{Binding}">_Speichern</Button>
         </StackPanel>
         
     </Grid>

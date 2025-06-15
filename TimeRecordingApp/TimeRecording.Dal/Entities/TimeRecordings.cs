@@ -10,12 +10,24 @@ namespace TimeRecording.Dal.Entities
 
         #region Fields
         private int mId;
+        private int? mActivityId;
         private DateTime mDate;
         private TimeSpan? mStartTime;
         private TimeSpan? mEndTime;
         private string   mNote;
 
-        public int? ActivityId { get; set; }
+        public int? ActivityId { 
+            get
+            {
+                return mActivityId;
+            }
+            set
+            {
+                if (value == mActivityId) return;
+                mActivityId = value;
+                OnPropertyChanged();
+            }
+        }
 
         [ForeignKey(nameof(ActivityId))]
         [InverseProperty(nameof(Activities.TimeRecordings))]
@@ -32,7 +44,7 @@ namespace TimeRecording.Dal.Entities
             {
                 if (value == mId) return;
                 mId = value;
-                OnPropertyChanged();
+             //   OnPropertyChanged();
             }
         }
 

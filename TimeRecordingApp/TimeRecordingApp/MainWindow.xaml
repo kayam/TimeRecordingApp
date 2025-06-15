@@ -44,7 +44,7 @@
             <Label x:Name="lblTime" Height="148" HorizontalAlignment="Left"  Width="378" FontSize="20" Margin="20,0,0,0"  />
         </StackPanel>
 
-        <DataGrid AlternationCount="2" 
+            <DataGrid AlternationCount="2" CanUserDeleteRows="False"
                   AlternatingRowBackground="LightGray" 
                   Validation.Error="DataGridTextColumn_Error" 
                   Name="gridTimeRecords" 
@@ -68,18 +68,18 @@
                 <DataGridTemplateColumn Width="110" Header="Datum" SortMemberPath="Date"  SortDirection="Ascending">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Date, StringFormat={}{0:dd.MM.yyyy ddd}, ConverterCulture='de-DE'}" />
+                                <TextBlock Text="{Binding Date, StringFormat={}{0:dd.MM.yyyy ddd}, ConverterCulture='de-DE'}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
-                            <DatePicker SelectedDate="{Binding Date}" />
+                                <DatePicker SelectedDate="{Binding Date, UpdateSourceTrigger=LostFocus}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
-                
-                
-                <DataGridTextColumn Header="Start" Width="42" Binding="{Binding Path=StartTime, Converter={StaticResource TimeConverter} }"></DataGridTextColumn>
+
+
+                    <DataGridTextColumn Header="Start" Width="42" Binding="{Binding Path=StartTime, UpdateSourceTrigger=LostFocus, Converter={StaticResource TimeConverter} }"></DataGridTextColumn>
 
                 
                 <DataGridTextColumn  Width="42" Header="Ende" >
@@ -103,7 +103,7 @@
                     </DataGridTextColumn.EditingElementStyle>
 
                     <DataGridTextColumn.Binding>
-                        <Binding Path="EndTime" NotifyOnValidationError="True">
+                        <Binding Path="EndTime" UpdateSourceTrigger="LostFocus" NotifyOnValidationError="True">
                             <Binding.ValidationRules>
                                 <!--<vali:TimeValidation></vali:TimeValidation> -->
                                 <StaticResource ResourceKey="TimeValidation"/>
@@ -117,16 +117,16 @@
 
                 
                 <DataGridComboBoxColumn Width="110" Header="Tätigkeit" 
-                    SelectedValueBinding="{Binding ActivityId}"
-                                        SelectedValuePath="Id"
+                    SelectedValueBinding="{Binding ActivityId, UpdateSourceTrigger=LostFocus}"
+                    SelectedValuePath="Id"
                     ItemsSource="{Binding Source={StaticResource Activities}}"
                     DisplayMemberPath="Description"></DataGridComboBoxColumn>
-                
 
-                <DataGridTextColumn  Header="Notiz" Width="*"  Binding="{Binding Path=Note}"></DataGridTextColumn>
 
-                
-                <DataGridCheckBoxColumn Header="Löschen" Binding="{Binding Path=MIsDeleted}"></DataGridCheckBoxColumn>
+                    <DataGridTextColumn  Header="Notiz" Width="*"  Binding="{Binding Path=Note, UpdateSourceTrigger=LostFocus}"></DataGridTextColumn>
+
+
+                    <DataGridCheckBoxColumn Header="Löschen" Binding="{Binding Path=MIsDeleted, UpdateSourceTrigger=PropertyChanged}"></DataGridCheckBoxColumn>
 
             </DataGrid.Columns>
         </DataGrid>
@@ -137,7 +137,7 @@
            <!-- <Button Width="60" Margin="10"  Command="{Binding Path=DeleteTimeRecordCmd}"
                         CommandParameter="{Binding ElementName=gridTimeRecords}">_Löschen</Button> -->
             <Button Width="60" Margin="10" Command="{Binding Path=SaveTimeRecordCmd}"
-                        CommandParameter="{Binding}">Speichern</Button>
+                        CommandParameter="{Binding}">_Speichern</Button>
         </StackPanel>
     </Grid>
     </DockPanel>

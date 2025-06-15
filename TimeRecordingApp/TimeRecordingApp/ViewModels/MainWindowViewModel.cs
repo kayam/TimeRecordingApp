@@ -17,8 +17,8 @@ namespace TimeRecordingApp.ViewModels
 
     public class MainWindowViewModel
     {
-        public IList<TimeRecordings> TimeRecords { get; } = new ObservableCollection<TimeRecordings>();
-        public IList<Activities> ActivityRecords { get; } = new ObservableCollection<Activities>();
+        public IList<TimeRecordings> TimeRecords { get; } = new ObservableCollection <TimeRecordings>();
+        public IList<Activities> ActivityRecords { get; } = new ObservableCollection <Activities>();
         //public IList<TimeRecordings> TimeRecords { get; } = new ObservableCollection<TimeRecordings>();
 
         // public ListCollectionView View { get; }
@@ -87,7 +87,7 @@ namespace TimeRecordingApp.ViewModels
 
 
             Context.Activities.ToList().ForEach(ActivityRecords.Add);
-
+            ActivityRecords.ToList().ForEach(a => a.MIsChanged = false);
             /*
             View = (ListCollectionView)
             CollectionViewSource.GetDefaultView(TimeRecords);
@@ -167,12 +167,13 @@ namespace TimeRecordingApp.ViewModels
                     if (rec.Id == 0)
                     {
                         Context.TimeRecordings.Add(rec);
+                        rec.MIsChanged = false;
                     }
                 }
             }
 
             Context.SaveChanges();
-
+            int  a = 3; 
 
             //View.Refresh();
         }
@@ -193,6 +194,7 @@ namespace TimeRecordingApp.ViewModels
                     if (rec.Id == 0)
                     {
                         Context.Activities.Add(rec);
+                        rec.MIsChanged = false;
                     }
                 }
             }
