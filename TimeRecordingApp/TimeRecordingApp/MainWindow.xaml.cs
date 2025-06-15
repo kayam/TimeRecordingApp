@@ -76,10 +76,11 @@ namespace TimeRecordingApp
             }
         }
 
+        /*
         private void gridTimeRecords_AddingNewItem(object sender, AddingNewItemEventArgs e)
         {
             gridTimeRecords.ScrollIntoView(e.NewItem);
-        }
+        } */
 
         private void CloseCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -98,7 +99,7 @@ namespace TimeRecordingApp
         private void MenuItemActivities_Click(object sender, RoutedEventArgs e)
         {
             
-            ActivitiesWin win = new ActivitiesWin ();
+            ActivitiesWin win = new ActivitiesWin (ViewModel);
             win.Owner = this;
             win.ShowDialog ();
 

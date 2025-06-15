@@ -5,10 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TimeRecordingApp"
         mc:Ignorable="d"
+        DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}"
         Title="Tätigkeiten" Height="450" Width="800">
     <Grid>
-        <DataGrid x:Name="mDataGrid" AutoGenerateColumns="True">
-            
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Row="0"  x:Name="mGridActivities" 
+                  AlternationCount="2" 
+                  AlternatingRowBackground="LightGray" 
+                  CanUserAddRows="False" 
+                  AutoGenerateColumns="False" 
+                  ItemsSource="{Binding ActivityRecords}" >
+
+            <DataGrid.Columns>
+            <DataGridTextColumn  Header="Beschreibung" Width="*"  Binding="{Binding Path=Description}"></DataGridTextColumn>
+            <DataGridTextColumn  Header="Priorität" Width="120"  Binding="{Binding Path=Priority}"></DataGridTextColumn>
+            <DataGridCheckBoxColumn Header="Löschen" Binding="{Binding Path=MIsDeleted}"></DataGridCheckBoxColumn>
+            </DataGrid.Columns>
         </DataGrid>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="20 0 0 0">
+            <Button Width="60" Margin="10" Command="{Binding Path=AddActivityRecordCmd}"
+                        CommandParameter="{Binding ElementName=mGridActivities, Path=ItemsSource}">_Neu</Button>
+            <!-- <Button Width="60" Margin="10"  Command="{Binding Path=DeleteTimeRecordCmd}"
+                        CommandParameter="{Binding ElementName=gridTimeRecords}">_Löschen</Button> -->
+            <Button Width="60" Margin="10" Command="{Binding Path=SaveActivityRecordCmd}"
+                        CommandParameter="{Binding}">Speichern</Button>
+        </StackPanel>
+        
     </Grid>
 </Window>

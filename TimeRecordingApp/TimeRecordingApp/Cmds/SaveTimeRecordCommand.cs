@@ -12,7 +12,7 @@ namespace TimeRecordingApp.Cmds
         public override void Execute(object parameter)
         {
             if ( ! (parameter is MainWindowViewModel m)) return;
-                m.Save();
+                m.Save ();
         }
 
     }

@@ -17,8 +17,8 @@ namespace TimeRecordingApp.ViewModels
 
     public class MainWindowViewModel
     {
-        public IList <TimeRecordings> TimeRecords { get; } = new ObservableCollection <TimeRecordings>();
-        public IList <Activities> ActivityRecords { get; } = new ObservableCollection <Activities>();
+        public IList<TimeRecordings> TimeRecords { get; } = new ObservableCollection<TimeRecordings>();
+        public IList<Activities> ActivityRecords { get; } = new ObservableCollection<Activities>();
         //public IList<TimeRecordings> TimeRecords { get; } = new ObservableCollection<TimeRecordings>();
 
         // public ListCollectionView View { get; }
@@ -39,19 +39,44 @@ namespace TimeRecordingApp.ViewModels
             }
         }//=> mAddTimeRecordCommand ??= new AddTimeRecordCommand();
 
-       /* private ICommand mDeleteTimeRecordCommand = null;
-        public ICommand DeleteTimeRecordCmd => mDeleteTimeRecordCommand ??= new DeleteTimeRecordCommand(); */
+        /* private ICommand mDeleteTimeRecordCommand = null;
+         public ICommand DeleteTimeRecordCmd => mDeleteTimeRecordCommand ??= new DeleteTimeRecordCommand(); */
 
         private ICommand mSaveTimeRecordCommand = null;
         public ICommand SaveTimeRecordCmd => mSaveTimeRecordCommand ??= new SaveTimeRecordCommand();
 
+
+
+
+
+        private ICommand mAddActivityRecordCommand = null;
+        public ICommand AddActivityRecordCmd
+        {
+            get => mAddActivityRecordCommand;
+            set
+            {
+                if (value != mAddActivityRecordCommand)
+                {
+                    mAddActivityRecordCommand = value;
+                }
+            }
+        }
+
+
+        private ICommand mSaveActivityRecordCommand = null;
+        public ICommand SaveActivityRecordCmd => mSaveActivityRecordCommand ??= new SaveActivityRecordCommand();
+
+
+
+
+
         public MainWindow MMainWin { get; set; }
 
-        public MainWindowViewModel (MainWindow theMainWin)
+        public MainWindowViewModel(MainWindow theMainWin)
         {
             MMainWin = theMainWin;
 
-            Context = new ApplicationDbContext ();
+            Context = new ApplicationDbContext();
             Context.TimeRecordings.Include(t => t.Activity).ToList().ForEach( //TimeRecords.Add);
                 delegate (TimeRecordings t)
                 {
@@ -59,7 +84,7 @@ namespace TimeRecordingApp.ViewModels
                     TimeRecords.Add(t);
                 });
 
-            
+
 
             Context.Activities.ToList().ForEach(ActivityRecords.Add);
 
@@ -90,7 +115,7 @@ namespace TimeRecordingApp.ViewModels
 
             
             */
-            Activities defaultActivity = ActivityRecords.FirstOrDefault ();
+            Activities defaultActivity = ActivityRecords.FirstOrDefault();
             AddTimeRecordCmd = new AddTimeRecordCommand(defaultActivity);
             ((AddTimeRecordCommand)AddTimeRecordCmd).MMainWin = MMainWin;
 
@@ -112,19 +137,36 @@ namespace TimeRecordingApp.ViewModels
             }
         }
 
-        public void Save ()
+        public bool IsDirtyActivities
         {
-            foreach (TimeRecordings rec in TimeRecords.ToList<TimeRecordings> ())
+            get
+            {
+                foreach (Activities rec in ActivityRecords)
+                {
+                    if (rec.MIsChanged)
+                        return true;
+                }
+                return false;
+            }
+        }
+
+
+        public void Save()
+        {
+            foreach (TimeRecordings rec in TimeRecords.ToList<TimeRecordings>())
             {
                 if (rec.MIsDeleted)
                 {
                     if (rec.Id != 0)
                         Context.TimeRecordings.Remove(rec);
                     TimeRecords.Remove(rec);
-                } else {
+                }
+                else
+                {
                     rec.MIsChanged = false;
-                    if (rec.Id == 0) { 
-                       Context.TimeRecordings.Add(rec);
+                    if (rec.Id == 0)
+                    {
+                        Context.TimeRecordings.Add(rec);
                     }
                 }
             }
@@ -133,6 +175,29 @@ namespace TimeRecordingApp.ViewModels
 
 
             //View.Refresh();
+        }
+
+        public void SaveActivities()
+        {
+            foreach (Activities rec in ActivityRecords.ToList<Activities>())
+            {
+                if (rec.MIsDeleted)
+                {
+                    if (rec.Id != 0)
+                        Context.Activities.Remove(rec);
+                    ActivityRecords.Remove(rec);
+                }
+                else
+                {
+                    rec.MIsChanged = false;
+                    if (rec.Id == 0)
+                    {
+                        Context.Activities.Add(rec);
+                    }
+                }
+            }
+            Context.SaveChanges();
+
         }
     }
 }

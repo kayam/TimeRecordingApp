@@ -44,7 +44,14 @@
             <Label x:Name="lblTime" Height="148" HorizontalAlignment="Left"  Width="378" FontSize="20" Margin="20,0,0,0"  />
         </StackPanel>
 
-        <DataGrid AlternationCount="2" AlternatingRowBackground="LightGray" Validation.Error="DataGridTextColumn_Error" Name="gridTimeRecords" CanUserAddRows="False"  Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding TimeRecords}" >
+        <DataGrid AlternationCount="2" 
+                  AlternatingRowBackground="LightGray" 
+                  Validation.Error="DataGridTextColumn_Error" 
+                  Name="gridTimeRecords" 
+                  CanUserAddRows="False" 
+                  Grid.Row="1" 
+                  AutoGenerateColumns="False" 
+                  ItemsSource="{Binding TimeRecords}" >
 
             <DataGrid.RowValidationErrorTemplate>
                 <ControlTemplate>

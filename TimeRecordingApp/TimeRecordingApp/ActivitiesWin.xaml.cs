@@ -9,6 +9,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TimeRecordingApp.Cmds;
+using TimeRecordingApp.ViewModels;
 
 namespace TimeRecordingApp
 {
@@ -18,13 +20,20 @@ namespace TimeRecordingApp
     public partial class ActivitiesWin : Window
     {
 
-        public ActivitiesWin()
-        {
+        public MainWindowViewModel ViewModel { get; set; }
 
-            MainWindow mainWin = Application.Current.MainWindow as MainWindow;
+        public ActivitiesWin(MainWindowViewModel theViewModel)
+        {
+            ViewModel = theViewModel;
+            //MainWindow mainWin = Application.Current.MainWindow as MainWindow;
+
+            ViewModel.AddActivityRecordCmd = new AddActivityRecordCommand(this);
 
             InitializeComponent();
-            mDataGrid.ItemsSource = mainWin.ViewModel.ActivityRecords;
+            //mGridActivities.ItemsSource = mainWin.ViewModel.ActivityRecords;
+
+
+
 
         }
     }
