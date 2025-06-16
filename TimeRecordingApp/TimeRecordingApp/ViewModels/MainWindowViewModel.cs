@@ -173,8 +173,6 @@ namespace TimeRecordingApp.ViewModels
             }
 
             Context.SaveChanges();
-            int  a = 3; 
-
             //View.Refresh();
         }
 

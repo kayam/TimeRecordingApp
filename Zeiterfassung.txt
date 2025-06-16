@@ -1,3 +1,13 @@
+
+
+
+
+
+
+
+
+
+
 <Button Width="60" Margin="10" Command="{Binding Path=DataContext.AddTimeRecordCmd, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                         CommandParameter="{Binding ElementName=gridTimeRecords, Path=ItemsSource}">Neu</Button>
 						
