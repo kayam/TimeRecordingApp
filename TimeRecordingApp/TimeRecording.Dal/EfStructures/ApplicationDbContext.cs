@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using TimeRecording.Dal.Entities;
+using Microsoft.Extensions.Configuration;
 
 namespace TimeRecording.Dal.EfStructures
 {
@@ -32,10 +33,22 @@ namespace TimeRecording.Dal.EfStructures
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("server=DESKTOP-LN64940\\MSSQLSERVER01;Database=TimeRecording;User Id=sa;Password=panther;Encrypt=False");
+                //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
 
                 //optionsBuilder.UseSqlServer("server=.,61770;Database=TimeRecording;User Id=sa;Password=panther;");
+                // optionsBuilder.UseSqlServer("server=DESKTOP-LN64940\\MSSQLSERVER01;Database=TimeRecording;User Id=sa;Password=panther;Encrypt=False");
+                /*
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                    .SetBasePath(AppContext.BaseDirectory)
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                    .Build();*/
+
+                var config = new ConfigurationBuilder ()
+                .AddJsonFile ("appsettings.json")
+                .Build ();
+
+                var connectionString = config.GetConnectionString("DefaultConnection");
+                optionsBuilder.UseSqlServer(connectionString);
             }
         }
 
