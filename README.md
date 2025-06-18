@@ -1,9 +1,8 @@
 # Zeiterfassung
  
 WPF Zeiterfassung Projekt mit folgenden Technologien:
-- .net core
+- .NET 9
 - C#
 - WPF
-- MS SQL
 - Entity framework core
-- Git, Github
+- MS SQL
