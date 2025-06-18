@@ -35,7 +35,7 @@ namespace TimeRecordingApp.Cmds
             MActivitiesWin.mGridActivities.CurrentCell = cellInfo;
             MActivitiesWin.mGridActivities.ScrollIntoView(newItem);
             MActivitiesWin.mGridActivities.BeginEdit();
-
+            MActivitiesWin.mGridActivities.SelectedIndex = -1;
         }
     }
 }

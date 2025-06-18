@@ -25,7 +25,7 @@ namespace TimeRecordingApp.Cmds
         public override void Execute(object parameter)
         {
             if (parameter is ListCollectionView view && view.SourceCollection is ObservableCollection<TimeRecordings> timeRecords) { 
-                var newItem = new TimeRecordings { Activity = MDefaultActivity, Date = DateTime.Today, StartTime = DateTime.Now.TimeOfDay, EndTime = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(1)), Note = "", MIsChanged = true };
+                var newItem = new TimeRecordings { ActivityId = MDefaultActivity?.Id, Date = DateTime.Today, StartTime = DateTime.Now.TimeOfDay, EndTime = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(1)), Note = "", MIsChanged = true };
                 timeRecords.Add(newItem);
              
                 MMainWin.gridTimeRecords.Focus();
@@ -33,6 +33,7 @@ namespace TimeRecordingApp.Cmds
                 MMainWin.gridTimeRecords.CurrentCell = cellInfo;
                 MMainWin.gridTimeRecords.ScrollIntoView (newItem);
                 MMainWin.gridTimeRecords.BeginEdit();
+                MMainWin.gridTimeRecords.SelectedIndex = -1;
             }
         }
 
