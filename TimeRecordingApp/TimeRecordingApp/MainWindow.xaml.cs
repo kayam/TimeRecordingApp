@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -71,7 +73,64 @@ namespace TimeRecordingApp
             Timer.Interval = new TimeSpan(0, 0, 1);
             Timer.Start();
             //System.Windows.Markup.StaticExtension
+
+
+            //lblWeather.Content =  WeatherData ().Result;
         }
+
+        private async Task <string> WeatherData () {
+
+            double latitude = 51.18;    // Remscheid lat
+            double longitude = 7.20;    // Remscheid lon
+            string url = $"https://api.open-meteo.com/v1/forecast?" +
+                         $"latitude={latitude}&longitude={longitude}" +
+                         "&current_weather=true&timezone=Europe/Berlin";
+
+            using HttpClient client = new HttpClient();
+            try {
+                HttpResponseMessage response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+
+                string json = await response.Content.ReadAsStringAsync();
+                using JsonDocument doc = JsonDocument.Parse(json);
+                JsonElement cw = doc.RootElement[0].GetProperty("current_weather");
+
+                double temp = cw.GetProperty("temperature").GetDouble();
+                double wind = cw.GetProperty("windspeed").GetDouble();
+                string condition = GetWeatherDescription ( int.Parse(cw.GetProperty("weathercode").GetRawText()));
+
+                string ret;
+
+                ret = $"Remscheid: {temp} °C  {condition}";
+                ret += $"\nWind: {wind} m/s";
+                return ret;
+            } catch (Exception ex) {
+
+                return $"Error: {ex.Message}";
+            }
+        }
+
+
+    string GetWeatherDescription(int code)
+    {
+        return code switch
+        {
+            0 => "Klarer Himmel",
+            1 => "Überwiegend klar",
+            2 => "Teilweise bewölkt",
+            3 => "Bewölkt",
+            45 => "Nebel",
+            48 => "Reifiger Nebel",
+            51 or 53 or 55 => "Nieselregen",
+            61 or 63 or 65 => "Regen",
+            71 or 73 or 75 => "Schnee",
+            80 or 81 or 82 => "Regenschauer",
+            95 => "Gewitter",
+            96 or 99 => "Gewitter mit Hagel",
+            _ => "Unbekannt"
+        };
+    }
+
 
         private void Timer_Click(object sender, EventArgs e) {
             DateTime d;
@@ -150,6 +209,10 @@ namespace TimeRecordingApp
                 e.Accepted = rec.Date.Date == today.Date;
                              //rec.Name.ToLower().Contains(_filterText);
             }
+        }
+
+        private async void MainWin_Loaded (object sender, RoutedEventArgs e) {
+            lblWeather.Content = await WeatherData ();
         }
     }
 }

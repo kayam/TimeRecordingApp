@@ -8,7 +8,7 @@
         xmlns:vali="clr-namespace:TimeRecordingApp.Validation"
         mc:Ignorable="d"
         DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}"
-        Title="Zeiterfassung" Height="650" Width="800" Name="MainWin"
+        Title="Zeiterfassung" Height="650" Width="800" Name="MainWin" Loaded="MainWin_Loaded" 
         
         >
     <Window.Resources>
@@ -54,7 +54,8 @@
             <Calendar></Calendar>
         
                 <StackPanel>
-                    <Label x:Name="lblTime" Height="148" HorizontalAlignment="Left"  Width="378" FontSize="20" Margin="20,0,0,0"  />
+                    <Label x:Name="lblTime" HorizontalAlignment="Left"  Width="378" FontSize="20" Margin="20,0,0,0"  />
+                    <Label x:Name="lblWeather" HorizontalAlignment="Left"  Width="378" FontSize="20" Margin="20,0,0,0"  />
                     <StackPanel HorizontalAlignment="Left">
                         <Button x:Name="mTodayButton" Width="100" Click="Button_Click">Heute</Button>
                     </StackPanel>
